@@ -1,3 +1,4 @@
+#Names
 # Open file and get data with \n character stripped
 def getFileLines(fileName):
     list = []
