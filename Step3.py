@@ -22,6 +22,23 @@ def getKey(line):
     key = line.split(": ")[1]
     return key
 
+#Format 1 or more names under the Author seciton
+def getNames(nameInfo):
+    names = ""
+    nameInfo = nameInfo.split(",")
+    i = 0
+    while i < len(nameInfo):
+        if i == 0:
+            authorLastFirst = nameInfo[i].split(" ")
+            names += authorLastFirst[1] + ", " + authorLastFirst[0]
+        else:
+            names += nameInfo[i]   
+        i+=1
+        if(i < len(nameInfo)):
+            names += ","
+        
+    return names
+
 # Remove prefixes on info like "Author: "
 def removePrefix(string):
     return string.split(": ")[1]
@@ -62,8 +79,8 @@ def createBook(bookInfo):
     finalString = ""
     
     # Add author name in order of first, last
-    authorFirstLast = removePrefix(bookInfo[0]).split(" ")
-    finalString += authorFirstLast[1] + ", " + authorFirstLast[0] + ", "
+    names = getNames(removePrefix(bookInfo[0]))
+    finalString += names + ", "
     
     # Add book title
     bookTitle = removePrefix(bookInfo[1])
@@ -83,8 +100,8 @@ def createJournal(journalInfo):
     finalString = ""
     
     # Add author name in order of last, first
-    authorLastFirst = removePrefix(journalInfo[0]).split(" ")
-    finalString += authorLastFirst[1] + ", " + authorLastFirst[0] + ", "
+    names = getNames(removePrefix(journalInfo[0]))
+    finalString += names + ", "
     
     # Add title
     title = removePrefix(journalInfo[1])
@@ -116,8 +133,8 @@ def createConference(conferenceInfo):
     finalString = ""
     
     # Add author name in order of last, first
-    authorLastFirst = removePrefix(conferenceInfo[0]).split(" ")
-    finalString += authorLastFirst[1] + ", " + authorLastFirst[0] + ", "
+    names = getNames(removePrefix(conferenceInfo[0]))
+    finalString += names + ", "
     
     # Add title
     title = removePrefix(conferenceInfo[1])
@@ -155,7 +172,7 @@ def getInput(msg):
 # ############### #
 
 dictionary = createDictionary()
-print(dictionary)
+#print(dictionary)
 choice = str()
 
 while choice != "exit":
